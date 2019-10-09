@@ -20,13 +20,13 @@ end
 figure(n),
 subplot(2,2,1);
 plot(x(1,label==0),x(2,label==0),'bo',x(1,label==1),x(2,label==1),'ro');
-legend('L=1', 'L=2','Location','NorthWest'); 
+legend('L = 1','L = 2','Location','NorthWest'); 
 title('Data and their true labels');
 xlabel('x_1'), ylabel('x_2');
 
 %After classified
 lambda = [0 1;1 0]; % loss values
-gamma = (lambda(2,1)-lambda(1,1))/(lambda(1,2)-lambda(2,2))*p1(1)/p1(2);%discriminant threshold
+gamma = (lambda(2,1)-lambda(1,1))/(lambda(1,2)-lambda(2,2))*p1(2)/p1(1);%discriminant threshold
 discriminantScore1 = log(evalGaussian(x,mu(:,2),Sigma(:,:,2)))-log(evalGaussian(x,mu(:,1),Sigma(:,:,1)));% - log(gamma);
 decision1 = (discriminantScore1 >= log(gamma));
 
@@ -41,7 +41,7 @@ plot(x(1,ind10),x(2,ind10),'or'); hold on,
 plot(x(1,ind01),x(2,ind01),'+r'); hold on,
 plot(x(1,ind11),x(2,ind11),'+g'); hold on,
 
-gamma = (lambda(2,1)-lambda(1,1))/(lambda(1,2)-lambda(2,2))*p2(1)/p2(2);%discriminant threshold
+gamma = (lambda(2,1)-lambda(1,1))/(lambda(1,2)-lambda(2,2))*p2(2)/p2(1);%discriminant threshold
 discriminantScore2 = log(evalGaussian(x,mu(:,2),Sigma(:,:,2)))-log(evalGaussian(x,mu(:,1),Sigma(:,:,1)));% - log(gamma);
 decision2 = (discriminantScore2 >= log(gamma));
 
@@ -63,25 +63,27 @@ Sw = Sigma(:,:,1) + Sigma(:,:,2);
 % eig(A) returns diagonal matrix D of eigenvalues 
 % and matrix V whose columns are the corresponding right eigenvectors,
 % so that A*V = V*D
-[V,D] = eig(inv(Sw)*Sb); %Sb * W = lambda * Sw * w
+[V,D] = eig(inv(Sw)*Sb); %Sb * W = lambda * Sw * W, ie w is a generalized eigenvector of (Sw,Sb)
 % diag() returns a square diagonal matrix with the elements of vector v on the main diagonal.
 % [B,I] = sort(___) also returns a collection of index vectors for any of the previous syntaxes. 
 % I is the same size as A and describes the arrangement of the elements of A into B along the sorted dimension. 
 % For example, if A is a vector, then B = A(I).
-[Z,ind] = sort(diag(D),'descend');
-D
-Z
-wLDA = V(:,ind(1)); % Fisher LDA projection vector ????
+[~,ind] = sort(diag(D),'descend');% extract eigenvalue and sort by descend
+wLDA = V(:,ind(1)); % Fisher LDA projection vector 
 yLDA = wLDA'*x; % All data projected on to the line spanned by wLDA
-wLDA = sign(mean(yLDA(find(label==1)))-mean(yLDA(find(label==0))))*wLDA; % ensures class1 falls on the + side of the axis
+% Y = sign(x) returns an array Y the same size as x, where each element of Y is:
+% 1 if the corresponding element of x is greater than 0.
+% 0 if the corresponding element of x equals 0.
+% -1 if the corresponding element of x is less than 0.
+% x./abs(x) if x is complex.
+wLDA = sign(mean(yLDA(find(label==1)))-mean(yLDA(find(label==0))))*wLDA; % ensures Label1 falls on the right side of the axis
 yLDA = sign(mean(yLDA(find(label==1)))-mean(yLDA(find(label==0))))*yLDA; % flip yLDA accordingly
 subplot(2,2,2)
-plot(yLDA(find(label==0)),zeros(1,Nc(1)),'o'), hold on,
-plot(yLDA(find(label==1)),zeros(1,Nc(2)),'+'), axis equal,
-legend('Class 0','Class 1'), 
-title('LDA projection of data and their true labels'),
+plot(yLDA(find(label==0)),zeros(1,Nc(1)),'o', yLDA(find(label==1)),zeros(1,Nc(2)),'+'), 
+axis equal,
+legend('L = 1','L = 2'), 
+title('Fisher LDA projection of data and their true labels'),
 xlabel('x_1'), ylabel('x_2'), 
-tau = 0;
 decisionLDA = (yLDA >= 0);
 
 

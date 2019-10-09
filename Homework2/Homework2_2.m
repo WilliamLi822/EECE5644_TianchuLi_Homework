@@ -10,6 +10,6 @@ Sigma4 = [2,-1.9;-1.9,5];
 
 
 RiskMinimization(mu1,Sigma1,mu2,Sigma1,N,1);
-%RiskMinimization(mu1,Sigma2,mu2,Sigma2,N,2);
-%RiskMinimization(mu1,Sigma3,mu3,Sigma4,N,3);
+RiskMinimization(mu1,Sigma2,mu2,Sigma2,N,2);
+RiskMinimization(mu1,Sigma3,mu3,Sigma4,N,3);
 
