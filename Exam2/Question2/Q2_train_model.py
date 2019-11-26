@@ -17,8 +17,8 @@ n_sample=1000
 n_batch=64
 
 #Read the data from the txt
-x_train=np.loadtxt('Q2_Xtrain.txt',delimiter=' ')
-x_test=np.loadtxt('Q2_Xtest.txt',delimiter=' ')
+x_train=np.loadtxt('Xtrain.txt',delimiter=' ')
+x_test=np.loadtxt('Xtest.txt',delimiter=' ')
 
 x_input=x_train[:,0].T
 y_input=x_train[:,1].T
