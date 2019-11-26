@@ -8,10 +8,9 @@ from keras.layers.core import Dense,Activation,Dropout
 from keras.optimizers import SGD,Adam,RMSprop
 from keras.utils import np_utils
 
-
 n_classes=4 
 n_epoch=20
-n_sample=100
+n_sample=10000
 learning_rate=0.001
 
 # Read data and true label
@@ -57,10 +56,5 @@ for train_ind, test_ind in kf.split(x_input):
 
 print Accuracy
 
-perceptron_mean=np.mean(Accuracy,axis=0)
-plt.plot(np.arange(1,11), perceptron_mean)
-plt.xlabel('Nubmer of Perceptrons')
-plt.ylabel('Probability of Correct')
-plt.show()
 
 

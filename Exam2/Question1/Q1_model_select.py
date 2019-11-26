@@ -11,7 +11,7 @@ from keras.utils import np_utils
 
 n_classes=4 
 n_epoch=20
-n_sample=1000
+n_sample=10000
 learning_rate=0.001
 
 # Read train data and true label
@@ -32,7 +32,7 @@ l_test=keras.utils.to_categorical(l_test_tmp, num_classes=n_classes)
 accuracy_list=np.loadtxt('Accuracy_%i.txt' %n_sample,delimiter=' ')
 
 #Find the number of perceptron that achieve maximum accuracy
-accuracy_mean=np.mean(accuracy_list,axis=1)
+accuracy_mean=np.mean(accuracy_list,axis=0)
 n_perceptron=np.argmax(accuracy_mean)+1
 print "\nthe number of perceptron of best perform model: ",n_perceptron
 plt.plot(np.arange(1,11), accuracy_mean)
