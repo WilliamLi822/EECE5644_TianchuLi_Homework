@@ -27,10 +27,10 @@ plt.show()
 
 if np.amin(sigmoid_mean)>np.amin(softplus_mean):
 	activation_function="softplus"
-	n_perceptron=np.argmin(softplus_mean)
+	n_perceptron=np.argmin(softplus_mean)+1
 else:
 	activation_function="sigmoid"
-	n_perceptron=np.argmin(sigmoid_mean)
+	n_perceptron=np.argmin(sigmoid_mean)+1
 
 print "the number of perceptron of best perform model: ",n_perceptron
 print "the activation function of best perform model: ",activation_function
