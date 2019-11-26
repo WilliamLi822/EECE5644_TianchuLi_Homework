@@ -9,8 +9,8 @@ from keras.optimizers import SGD,Adam,RMSprop
 from keras.utils import np_utils
 
 
-x_train=np.loadtxt('Q2_Xtrain.txt',delimiter=' ')
-x_test=np.loadtxt('Q2_Xtest.txt',delimiter=' ')
+x_train=np.loadtxt('Xtrain.txt',delimiter=' ')
+x_test=np.loadtxt('Xtest.txt',delimiter=' ')
 
 sigmoid_output=np.loadtxt('sigmoid_MSE.txt',delimiter=' ')
 softplus_output=np.loadtxt('softplus_MSE.txt',delimiter=' ')
