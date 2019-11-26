@@ -2,10 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import KFold
 import keras
-from keras.datasets import mnist
 from keras.models import Sequential
 from keras.layers.core import Dense,Activation,Dropout
-from keras.optimizers import SGD,Adam,RMSprop
+from keras.optimizers import SGD,Adam
 from keras.utils import np_utils
 
 n_classes=4 
